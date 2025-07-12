@@ -1,0 +1,118 @@
+:root {
+  --background-color: #ffffff;
+  --background-on-hover: #ffffff;
+  --font-color: #000000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav{
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100vh;
+    width: 245px;
+    /* justify-content: space-between; */
+    background-color: var(--background-color);
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-inline:  10px;
+    border-right: 0.1px solid rgba(76, 75, 75, 0.737);
+    position: sticky;
+    top: 0px;
+    transition: width 2s ease-in-out;
+}
+
+.navIcon{
+    width: 20px;
+    margin: 5px;
+}
+.navText{
+    padding: 2px;
+}
+.navlink{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.instagram-text-logo{
+    width: 150px;
+    margin: 5px 30px;
+    cursor: pointer;
+}
+.instagram-text-logo img{
+    width: 100%;
+    /* filter: brightness(5); */
+}
+
+.sub-section{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+}
+.sub-section:hover{
+    background-color: var(--background-on-hover);
+}
+.sub-section:hover i{
+    transform: scale(1.07);
+    transition: all 0.2s ease;
+}
+.sub-section:hover a{
+    font-weight: 600;
+}
+.sub-section:hover .profile-img{
+    transform: scale(1.07);
+    transition: all 0.2s ease;
+}
+.sub-section i{
+    font-size: 1.3rem;
+    color: var(--font-color);
+    transition: all 0.2s ease;
+
+}
+.profile-img{
+    width: 22px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.profile-img img{
+    width: 100%;
+    border-radius: 50%;
+}
+.menu-section{
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    /* position: absolute;
+    bottom: 10px; */
+    margin-top: 23px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+.menu-section:hover{
+    background-color: var(--background-on-hover);
+}
+.menu-section:hover i{
+   transform: scale(1.07);
+   transition: all 0.2s ease;
+}
+.menu-section i{
+    color: var(--font-color);
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
