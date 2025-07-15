@@ -7,6 +7,8 @@ const friendRoutes = require('./routes/friends');
 const connectDB = require('./config/connectDB');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
+
 
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
@@ -41,22 +43,20 @@ app.get('/', (req, res) => res.send('API is running...'));
 
 
 // ✅ Serve static files from frontend (Vite/React build)
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+  });
+}
+
 
 // ❌ 404 Handler (put AFTER static frontend serving)
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
-// 404 handler
-app.use((req, res, next) => {
-  res.status(404).json({ message: 'Route not found' });
-});
-
 // Global error handler
 // Global error handler (place after all routes)
 app.use((err, req, res, next) => {

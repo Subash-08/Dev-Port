@@ -6,6 +6,97 @@ const User = require('../models/user');
 const userAuth = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
+
+// ----------------------- GET SINGLE POST OF LOGGED-IN USER -----------------------
+router.get('/myProfile/post/:postId', userAuth, async (req, res) => {
+  const { postId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(400).json({ message: 'Invalid post ID' });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: postId, author: req.user._id })
+      .populate('author', 'username avatar')
+      .populate('comments.user', 'username avatar');
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found or does not belong to you' });
+    }
+
+    res.status(200).json(post);
+  } catch (err) {
+    console.error('Error fetching user post:', err);
+    res.status(500).json({ message: 'Error fetching post' });
+  }
+});
+
+
+
+// GET /posts/user/:username
+router.get('/username/:username', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const posts = await Post.find({ author: user._id })
+      .sort({ createdAt: -1 })
+      .populate('author', 'username avatar')
+      .populate('comments.user', 'username avatar');
+
+    res.status(200).json({ posts });
+  } catch (err) {
+    console.error('Error fetching posts by username:', err.message);
+    res.status(500).json({ message: 'Could not fetch posts' });
+  }
+});
+
+
+// ----------------------- GET SINGLE POST BY USER & POST ID -----------------------
+router.get('/:userId/:postId', userAuth, async (req, res) => {
+  const { userId, postId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(400).json({ message: 'Invalid user or post ID' });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: postId, author: userId })
+      .populate('author', 'username avatar')
+      .populate('likes', 'username avatar') 
+      .populate('comments.user', 'username avatar');
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found for this user' });
+    }
+
+    res.status(200).json(post);
+  } catch (err) {
+    console.error('Error fetching post by user:', err);
+    res.status(500).json({ message: 'Error fetching post' });
+  }
+});
+
+
+// ----------------------- GET MY POSTS -----------------------
+router.get('/my', userAuth, async (req, res) => {
+  try {
+const posts = await Post.find({ author: req.user._id }) // ✅
+
+      .sort({ createdAt: -1 })
+      .populate('author', 'username avatar')
+      .populate('comments.user', 'username avatar');
+
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error("Error loading my posts:", err.message);
+    res.status(500).json({ message: 'Could not load your posts' });
+  }
+});
+
+//create post
 router.post('/post', userAuth, upload.single('image'), async (req, res) => {
   try {
     const { text, caption } = req.body;
@@ -66,21 +157,6 @@ router.get('/feed', userAuth, async (req, res) => {
   }
 });
 
-// ----------------------- GET MY POSTS -----------------------
-router.get('/my', userAuth, async (req, res) => {
-  try {
-const posts = await Post.find({ author: req.user._id }) // ✅
-
-      .sort({ createdAt: -1 })
-      .populate('author', 'username avatar')
-      .populate('comments.user', 'username avatar');
-
-    res.status(200).json(posts);
-  } catch (err) {
-    console.error("Error loading my posts:", err.message);
-    res.status(500).json({ message: 'Could not load your posts' });
-  }
-});
 // ----------------------- GET USER POSTS BY ID -----------------------
 router.get('/:userId', userAuth, async (req, res) => {
   const { userId } = req.params;
@@ -101,27 +177,6 @@ router.get('/:userId', userAuth, async (req, res) => {
     res.status(500).json({ message: 'Could not load user posts' });
   }
 });
-
-// GET /posts/user/:username
-router.get('/:username', async (req, res) => {
-  const { username } = req.params;
-
-  try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    const posts = await Post.find({ author: user._id })
-      .sort({ createdAt: -1 })
-      .populate('author', 'username avatar')
-      .populate('comments.user', 'username avatar');
-
-    res.status(200).json({ posts });
-  } catch (err) {
-    console.error('Error fetching posts by username:', err.message);
-    res.status(500).json({ message: 'Could not fetch posts' });
-  }
-});
-
 
 
 
@@ -179,54 +234,6 @@ router.post('/:id/comment', userAuth, async (req, res) => {
   } catch (err) {
     console.error('Error adding comment:', err);
     res.status(500).json({ message: 'Error adding comment' });
-  }
-});
-// ----------------------- GET SINGLE POST OF LOGGED-IN USER -----------------------
-router.get('/myProfile/post/:postId', userAuth, async (req, res) => {
-  const { postId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(postId)) {
-    return res.status(400).json({ message: 'Invalid post ID' });
-  }
-
-  try {
-    const post = await Post.findOne({ _id: postId, author: req.user._id })
-      .populate('author', 'username avatar')
-      .populate('comments.user', 'username avatar');
-
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found or does not belong to you' });
-    }
-
-    res.status(200).json(post);
-  } catch (err) {
-    console.error('Error fetching user post:', err);
-    res.status(500).json({ message: 'Error fetching post' });
-  }
-});
-
-// ----------------------- GET SINGLE POST BY USER & POST ID -----------------------
-router.get('/:userId/:postId', userAuth, async (req, res) => {
-  const { userId, postId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(postId)) {
-    return res.status(400).json({ message: 'Invalid user or post ID' });
-  }
-
-  try {
-    const post = await Post.findOne({ _id: postId, author: userId })
-      .populate('author', 'username avatar')
-      .populate('likes', 'username avatar') 
-      .populate('comments.user', 'username avatar');
-
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found for this user' });
-    }
-
-    res.status(200).json(post);
-  } catch (err) {
-    console.error('Error fetching post by user:', err);
-    res.status(500).json({ message: 'Error fetching post' });
   }
 });
 
