@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/auth/', authRoutes);
-app.use('/user/posts', postRoutes);
+// app.use('/user/posts', postRoutes);
 app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
@@ -48,12 +48,11 @@ app.get('/', (req, res) => res.send('API is running...'));
 
 // ✅ Serve static files from frontend (Vite/React build)
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
-
-  app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-  });
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, '../client/dist/index.html')));
+    app.get('*', (req, res) =>{
+        res.sendFile(path.resolve(__dirname, '../client/dist/index.html'))
+    })
 }
 
 
