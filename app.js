@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
 
-
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
 
@@ -40,20 +39,20 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/auth/', authRoutes);
-// app.use('/user/posts', postRoutes);
+app.use('/user/posts', postRoutes);
 app.use('/user/friends', friendRoutes);
-app.use('/user', userRoutes);
+// app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
 
 
 // ✅ Serve static files from frontend (Vite/React build)
 
 if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, '../client/dist/index.html')));
+    app.use(express.static(path.join(__dirname, '../client/dist')));
     app.get('*', (req, res) =>{
-        res.sendFile(path.resolve(__dirname, '../client/dist/index.html'))
-    })
+    });
 }
+
 
 
 // ❌ 404 Handler (put AFTER static frontend serving)
