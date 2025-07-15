@@ -39,6 +39,19 @@ app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
 
+
+// ✅ Serve static files from frontend (Vite/React build)
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
+// ❌ 404 Handler (put AFTER static frontend serving)
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Route not found' });
+});
 // 404 handler
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
