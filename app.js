@@ -11,11 +11,24 @@ const cors = require('cors');
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
 
-// Middleware
+const allowedOrigins = [
+  'http://localhost:5173', // development
+  'https://your-production-frontend.com' // production
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // your Vite frontend
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -46,7 +59,9 @@ app.use((err, req, res, next) => {
 
 // Start server
 connectDB().then(() => {
-  app.listen(process.env.PORT, () =>
-    console.log(`Server running on port ${process.env.PORT}`)
-  );
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 });
