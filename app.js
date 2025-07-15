@@ -40,20 +40,19 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth/', authRoutes);
 app.use('/user/posts', postRoutes);
-// app.use('/user/friends', friendRoutes);
+app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
 
 
 // ✅ Serve static files from frontend (Vite/React build)
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '../client/dist')));
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
   });
 }
+
 
 
 
