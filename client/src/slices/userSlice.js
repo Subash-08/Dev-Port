@@ -15,6 +15,8 @@ const userSlice = createSlice({
     userSuccess: (state, action) => {
       state.loading = false;
       state.profile = action.payload;
+      console.log(state);
+      
     },
     userFail: (state, action) => {
       state.loading = false;
@@ -24,8 +26,10 @@ const userSlice = createSlice({
       state.profile = null;
       state.error = null;
     },
+      // 🔽 New loadUser-specific reducers
+  
   },
 });
 
-export const { userRequest, userSuccess, userFail, clearUser } = userSlice.actions;
+export const { userRequest, userSuccess, userFail, clearUser} = userSlice.actions;
 export default userSlice.reducer;

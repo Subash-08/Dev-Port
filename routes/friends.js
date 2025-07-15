@@ -5,35 +5,41 @@ const userAuth = require('../middleware/auth');
 
 //send req
 router.post('/request/:id', userAuth, async (req, res) => {
-  const senderId = req.user._id;
-  const receiverId = req.params.id;
+  try {
+    const senderId = req.user._id;
+    const receiverId = req.params.id;
 
-  if (senderId.toString() === receiverId) {
-    return res.status(400).json({ message: "You can't send a request to yourself." });
+    if (senderId.toString() === receiverId) {
+      return res.status(400).json({ message: "You can't send a request to yourself." });
+    }
+
+    const sender = await User.findById(senderId);
+    const receiver = await User.findById(receiverId);
+
+    if (!receiver) return res.status(404).json({ message: 'User not found.' });
+
+    if (sender.friends.includes(receiverId) || receiver.friends.includes(senderId)) {
+      return res.status(400).json({ message: 'You are already friends.' });
+    }
+
+    if (receiver.friendRequests.includes(senderId)) {
+      return res.status(400).json({ message: 'Friend request already sent.' });
+    }
+
+    if (sender.friendRequests.includes(receiverId)) {
+      return res.status(400).json({ message: 'User has already sent you a request.' });
+    }
+
+    receiver.friendRequests.push(senderId);
+    await receiver.save();
+
+    return res.status(200).json({ message: 'Friend request sent.' });
+  } catch (err) {
+    console.error('Friend request error:', err);
+    return res.status(500).json({ message: 'Server error' });
   }
-
-  const sender = await User.findById(senderId);
-  const receiver = await User.findById(receiverId);
-
-  if (!receiver) return res.status(404).json({ message: 'User not found.' });
-
-  if (sender.friends.includes(receiverId) || receiver.friends.includes(senderId)) {
-    return res.status(400).json({ message: 'You are already friends.' });
-  }
-
-  if (receiver.friendRequests.includes(senderId)) {
-    return res.status(400).json({ message: 'Friend request already sent.' });
-  }
-
-  if (sender.friendRequests.includes(receiverId)) {
-    return res.status(400).json({ message: 'User has already sent you a request.' });
-  }
-
-  receiver.friendRequests.push(senderId);
-  await receiver.save();
-
-  res.status(200).json({ message: 'Friend request sent.' });
 });
+
 
 //req recieved
 router.get('/requests', userAuth, async (req, res) => {

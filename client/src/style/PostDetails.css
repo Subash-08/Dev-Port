@@ -1,0 +1,142 @@
+.post-details-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.post-details-card {
+  max-width: 600px;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.post-image-large {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.post-text-box-large {
+  padding: 2rem;
+  font-size: 1.2rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.post-meta {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.post-details-container {
+  max-width: 600px;
+  margin:  auto;
+  padding: 1rem;
+}
+
+.post-details-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.post-image-large {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+.post-text-box-large {
+  background-color: #eaf6ff;
+  padding: 2rem;
+  border-radius: 8px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+}
+
+.post-meta {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.post-stats {
+  margin-top: 1rem;
+  font-size: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.post-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: first baseline;
+  align-items: baseline;
+}
+.post-actions-div{
+  margin: 15px;
+}
+
+.share-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.share-btn:hover {
+  background-color: #43a047;
+}
+.like-btn {
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.liked {
+  color: red;
+}
+
+.unliked {
+  color: black;
+}
+
+.add-comment {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.comment-btn {
+  padding: 8px 12px;
+  border: none;
+  background: #0077ff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}

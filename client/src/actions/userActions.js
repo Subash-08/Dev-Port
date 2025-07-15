@@ -1,15 +1,17 @@
 import axios from 'axios';
-import { userRequest, userSuccess, userFail } from '../slices/userSlice';
+import { userRequest, userSuccess, userFail} from '../slices/userSlice';
+import { loadUserFail, loadUserRequest, loadUserSuccess } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import api from '../config/api';
 
 // Get current user
 export const fetchMyProfile = () => async (dispatch) => {
   try {
     dispatch(userRequest());
-    const res = await axios.get('/api/user/myProfile', { withCredentials: true });
-    dispatch(userSuccess(res.data));
+    const res = await api.get('/user/myprofile', { withCredentials: true });
+    dispatch(userSuccess(res.data.user));
   } catch (err) {
-    dispatch(userFail(err.response?.data?.message || 'Failed to fetch profile'));
+    dispatch(userFail(err.response?.data?.message || 'Failed to load profile'));
   }
 };
 
@@ -17,7 +19,7 @@ export const fetchMyProfile = () => async (dispatch) => {
 export const updateProfile = (data) => async (dispatch) => {
   try {
     dispatch(userRequest());
-    const res = await axios.patch('/api/user/update', data, { withCredentials: true });
+    const res = await api.patch('/user/update', data, { withCredentials: true });
     dispatch(userSuccess(res.data.user));
     toast.success(res.data.message);
   } catch (err) {
@@ -30,7 +32,7 @@ export const updateProfile = (data) => async (dispatch) => {
 export const changePassword = (data) => async (dispatch) => {
   try {
     dispatch(userRequest());
-    const res = await axios.patch('/api/user/change-password', data, { withCredentials: true });
+    const res = await api.patch('/user/change-password', data, { withCredentials: true });
     toast.success(res.data.message);
   } catch (err) {
     dispatch(userFail(err.response?.data?.message || 'Password change failed'));
@@ -41,7 +43,7 @@ export const changePassword = (data) => async (dispatch) => {
 // Search users
 export const searchUsers = (query) => async () => {
   try {
-    const res = await axios.get(`/api/user/search?q=${query}`, { withCredentials: true });
+    const res = await api.get(`/user/search?q=${query}`, { withCredentials: true });
     return res.data; // [{username, avatar, bio}]
   } catch (err) {
     toast.error('Search failed');
@@ -52,10 +54,22 @@ export const searchUsers = (query) => async () => {
 // Get user by username
 export const getUserByUsername = (username) => async () => {
   try {
-    const res = await axios.get(`/api/user/${username}`, { withCredentials: true });
+    const res = await api.get(`/user/${username}`, { withCredentials: true });
     return res.data;
   } catch (err) {
     toast.error('User not found');
     return null;
+  }
+};
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch(loadUserRequest());
+const res = await api.get('/user/myprofile', { withCredentials: true });
+  dispatch(loadUserSuccess(res.data.user));  // → goes to auth slice
+    dispatch(userSuccess(res.data.user));    
+
+  } catch (err) {
+    const message = err.response?.data?.message || 'Failed to load user';
+    dispatch(loadUserFail(message));
   }
 };

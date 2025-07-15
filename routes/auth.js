@@ -7,6 +7,9 @@ const userAuth = require('../middleware/auth')
 // @route   POST /api/auth/register
 // @desc    Register new user
 // @access  Public
+
+
+
 router.post('/register', async (req, res) => {
   try {
     const { username, firstName, lastName, email, password, avatar, bio } = req.body;

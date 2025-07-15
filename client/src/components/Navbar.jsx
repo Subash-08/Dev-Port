@@ -39,6 +39,13 @@ const Navbar = () => {
           </Link>
         </div>
 
+         <div className="sub-section">
+          <Link className="navlink" to="/explore-users">
+            <img className="navIcon" src="https://img.icons8.com/?size=100&id=2yC9SZKcXDdX&format=png&color=000000" />
+            <span className="navText">Expolre Frineds</span>
+          </Link>
+        </div>
+
         <div className="sub-section">
           <Link className="navlink" to="/create">
             <img className="navIcon" src="https://img.icons8.com/?size=100&id=24717&format=png&color=000000" />

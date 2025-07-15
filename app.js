@@ -22,8 +22,8 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth/', authRoutes);
 app.use('/user/posts', postRoutes);
-app.use('/user', userRoutes);
 app.use('/user/friends', friendRoutes);
+app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
 
 // 404 handler

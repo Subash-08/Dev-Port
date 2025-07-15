@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String, // URL or base64
-    default: '',
+    default: '/uploads/profile.jpg',
   },
   bio: {
     type: String,
@@ -50,7 +50,8 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     }
-  ]
+  ],
+  pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 }, { timestamps: true });
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

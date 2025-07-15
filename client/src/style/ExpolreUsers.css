@@ -1,0 +1,121 @@
+.explore-users-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.explore-users-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.explore-user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.friend-request-list {
+  list-style: none;
+  padding: 0;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.friend-requests-container{
+    width: 70%;
+    margin: auto;
+}
+.friend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}
