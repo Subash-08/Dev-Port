@@ -158,7 +158,7 @@ router.get('/feed', userAuth, async (req, res) => {
 });
 
 // ----------------------- GET USER POSTS BY ID -----------------------
-router.get('/:userId', userAuth, async (req, res) => {
+router.get('/user/:userId', userAuth, async (req, res) => {
   const { userId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
