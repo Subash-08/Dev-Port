@@ -13,9 +13,12 @@ require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
 
 const allowedOrigins = [
-  'http://localhost:5173', // development
-  'https://your-production-frontend.com' // production
+  'http://localhost:5173',
+  'https://your-app-name.onrender.com',   // Render example
+  'https://your-app.vercel.app',          // Vercel example
+  'https://your-production-domain.com'    // Custom domain
 ];
+
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -32,26 +35,26 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-app.use((req, res, next) => {
-  console.log('Request:', req.method, req.url);
-  next();
-});
+
 
 // Routes
 app.use('/api/auth/', authRoutes);
 app.use('/user/posts', postRoutes);
-app.use('/user/friends', friendRoutes);
-// app.use('/user', userRoutes);
+// app.use('/user/friends', friendRoutes);
+app.use('/user', userRoutes);
 app.get('/', (req, res) => res.send('API is running...'));
 
 
 // ✅ Serve static files from frontend (Vite/React build)
 
-if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-    app.get('*', (req, res) =>{
-    });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  });
 }
+
 
 
 
