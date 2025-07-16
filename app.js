@@ -8,15 +8,11 @@ const connectDB = require('./config/connectDB');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
+const http = require('http');
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://your-app-name.onrender.com',   // Render example
-  'https://your-app.vercel.app',          // Vercel example
-  'https://your-production-domain.com'    // Custom domain
-];
+
 
 
 app.use(cors({

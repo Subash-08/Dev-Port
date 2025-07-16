@@ -99,29 +99,31 @@ router.post('/post', userAuth, upload.single('image'), async (req, res) => {
 });
 
 
-
-// ----------------------- GET  FEED -----------------------
+// GET /api/posts/feed?skip=0&limit=10&showOld=true
 router.get('/feed', userAuth, async (req, res) => {
   try {
     const currentUser = await User.findById(req.user.id).select('friends');
-
-    
-    if (!currentUser) return res.status(404).json({ message: 'No friends found' });
+    if (!currentUser) return res.status(404).json({ message: 'User not found' });
 
     const friendIds = currentUser.friends;
     const showOld = req.query.showOld === 'true';
+    const skip = parseInt(req.query.skip) || 0;
+    const limit = parseInt(req.query.limit) || 10;
 
+    // Start with base query
     const query = { author: { $in: friendIds } };
 
     if (!showOld) {
-      // Only fetch posts from the last 24 hours as "new posts"
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      query.createdAt = { $gte: yesterday };
+      query.createdAt = { $gte: yesterday }; // Only if showOld === false
     }
+
 
     const posts = await Post.find(query)
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .populate('author', 'username avatar')
       .populate('comments.user', 'username avatar');
 
@@ -131,6 +133,7 @@ router.get('/feed', userAuth, async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch feed' });
   }
 });
+
 
 // ----------------------- GET USER POSTS BY ID -----------------------
 router.get('/user/:userId', userAuth, async (req, res) => {

@@ -60,7 +60,7 @@ const CreatePost = () => {
       });
 
       toast.success('Image post created!');
-      navigate('/myProfile');
+     navigate('/profile');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to create image post.');
     } finally {
