@@ -36,12 +36,12 @@ app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
 
 // ✅ Serve static files from frontend (Vite/React build)
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
+// Fallback for React Router
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
-
-
 
 console.log(process.env.NODE_ENV);
 
