@@ -15,7 +15,7 @@ const userSlice = createSlice({
     userSuccess: (state, action) => {
       state.loading = false;
       state.profile = action.payload;
-      console.log(state);
+      // console.log(state);
       
     },
     userFail: (state, action) => {

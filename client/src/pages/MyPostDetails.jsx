@@ -95,6 +95,9 @@ const MyPostDetails = () => {
       <div className="post-details-card">
         {post.image ? (
           <div>
+             {post.caption && (
+              <p className="post-image-caption">{post.caption}</p>
+            )}
             <img
               src={
                 post.image.startsWith('/uploads')
@@ -105,9 +108,7 @@ const MyPostDetails = () => {
               className="post-image-large"
             />
 
-            {post.caption && (
-              <p className="post-image-caption">{post.caption}</p>
-            )}
+           
           </div>
 
 

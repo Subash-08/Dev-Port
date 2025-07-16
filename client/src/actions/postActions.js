@@ -12,6 +12,7 @@ export const fetchMyPosts = () => async (dispatch) => {
 
     const res = await api.get('/user/posts/my', { withCredentials: true });
 
+
     dispatch(myPostsSuccess(res.data));
   } catch (err) {
     const errorMessage = err.response?.data?.message || 'Failed to load posts';
