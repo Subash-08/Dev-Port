@@ -36,14 +36,14 @@ app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
 
 // ✅ Serve static files from frontend (Vite/React build)
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-// Fallback for React Router
+
+app.use(express.static(path.join(process.cwd(), 'client', 'dist')));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(process.cwd(), 'client', 'dist', 'index.html'));
 });
 
-console.log(process.env.NODE_ENV);
 
 
 // ❌ 404 Handler (put AFTER static frontend serving)
