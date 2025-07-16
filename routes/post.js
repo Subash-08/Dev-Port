@@ -54,31 +54,6 @@ router.get('/username/:username', async (req, res) => {
 });
 
 
-// ----------------------- GET SINGLE POST BY USER & POST ID -----------------------
-router.get('/:userId/:postId', userAuth, async (req, res) => {
-  const { userId, postId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(postId)) {
-    return res.status(400).json({ message: 'Invalid user or post ID' });
-  }
-
-  try {
-    const post = await Post.findOne({ _id: postId, author: userId })
-      .populate('author', 'username avatar')
-      .populate('likes', 'username avatar') 
-      .populate('comments.user', 'username avatar');
-
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found for this user' });
-    }
-
-    res.status(200).json(post);
-  } catch (err) {
-    console.error('Error fetching post by user:', err);
-    res.status(500).json({ message: 'Error fetching post' });
-  }
-});
-
 
 // ----------------------- GET MY POSTS -----------------------
 router.get('/my', userAuth, async (req, res) => {
@@ -236,6 +211,33 @@ router.post('/:id/comment', userAuth, async (req, res) => {
     res.status(500).json({ message: 'Error adding comment' });
   }
 });
+
+
+// ----------------------- GET SINGLE POST BY USER & POST ID -----------------------
+router.get('/:userId/:postId', userAuth, async (req, res) => {
+  const { userId, postId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(400).json({ message: 'Invalid user or post ID' });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: postId, author: userId })
+      .populate('author', 'username avatar')
+      .populate('likes', 'username avatar') 
+      .populate('comments.user', 'username avatar');
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found for this user' });
+    }
+
+    res.status(200).json(post);
+  } catch (err) {
+    console.error('Error fetching post by user:', err);
+    res.status(500).json({ message: 'Error fetching post' });
+  }
+});
+
 
 // ----------------------- DELETE POST -----------------------
 router.delete('/delete/:id', userAuth, async (req, res) => {
