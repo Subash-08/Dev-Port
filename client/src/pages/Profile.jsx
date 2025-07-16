@@ -116,7 +116,6 @@ const Profile = () => {
         </button>
       </div>
 
-      {/* Navigation Buttons */}
       <div className="friend-buttons">
                 <button
           onClick={() => setView('posts')}
@@ -140,7 +139,6 @@ const Profile = () => {
         
       </div>
 
-      {/* Content Switcher */}
       {view === 'posts' && (
         postsLoading ? (
           <Loader />

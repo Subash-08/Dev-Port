@@ -1,4 +1,4 @@
-/* Layout.css or global CSS */
+
 
 body {
   margin: 0;
@@ -10,7 +10,7 @@ nav {
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: #1e293b; /* Dark blue/gray */
+  background-color: #1e293b; 
   color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
@@ -18,7 +18,7 @@ nav {
 
 .main-content {
     margin-left: 245px;
-    /* width: 100%; */
+   
   min-height: 100vh;
   background-color: #f1f5f9;
 }
@@ -38,7 +38,6 @@ nav {
   background-color: #fff;
   padding: 30px 25px;
   border-radius: 10px;
-  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); */
   width: 100%;
   max-width: 400px;
 }

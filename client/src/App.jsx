@@ -50,11 +50,11 @@ const App = () => {
 
     <Router>
       <Routes>
-        {/* Public Routes */}
+       
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected Routes */}
+       
         <Route
           element={
             <ProtectedRoute>
@@ -78,7 +78,7 @@ const App = () => {
         </Route>
       </Routes>
 
-      {/* Toast Container */}
+   
       <ToastContainer position="bottom-center" autoClose={3000} />
     </Router>
   );

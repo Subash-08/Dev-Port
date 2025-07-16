@@ -135,13 +135,11 @@ if (!loaded) return <Loader />;
         </div>
       </div>
 
-      {/* Tab buttons */}
       <div className="profile-tabs">
         <button onClick={() => setActiveTab('posts')} className={activeTab === 'posts' ? 'active' : ''}>Posts</button>
         <button onClick={() => setActiveTab('friends')} className={activeTab === 'friends' ? 'active' : ''}>Friends {friendsList.length}</button>
       </div>
 
-      {/* Tab Content */}
       {activeTab === 'posts' ? (
         <div className="my-posts-section">
   <div className="post-grid">

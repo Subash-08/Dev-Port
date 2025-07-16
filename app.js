@@ -8,7 +8,6 @@ const connectDB = require('./config/connectDB');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
-
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
 
@@ -21,17 +20,10 @@ const allowedOrigins = [
 
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+  origin: true,        // ✅ Allow all origins
+  credentials: true    // ✅ Allow sending cookies (for auth)
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -42,19 +34,16 @@ app.use('/api/auth/', authRoutes);
 app.use('/user/posts', postRoutes);
 app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
-app.get('/', (req, res) => res.send('API is running...'));
-
 
 // ✅ Serve static files from frontend (Vite/React build)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-  });
-}
+app.use(express.static(path.join(__dirname, 'client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+});
 
 
 
+console.log(process.env.NODE_ENV);
 
 
 // ❌ 404 Handler (put AFTER static frontend serving)
@@ -76,7 +65,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 connectDB().then(() => {
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

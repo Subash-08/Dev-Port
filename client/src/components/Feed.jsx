@@ -116,7 +116,7 @@ allPosts = Array.from(uniqueMap.values());
       ) : (
         posts.map((post) => (
           <div key={post._id} className="post-details-card">
-            {/* Author */}
+           
             <div
               className="post-author-info"
               style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
@@ -134,7 +134,7 @@ allPosts = Array.from(uniqueMap.values());
               <h3>@{post.author.username}</h3>
             </div>
 
-            {/* Image / Text */}
+         
             {post.image ? (
               <div>
                 <img
@@ -156,7 +156,7 @@ allPosts = Array.from(uniqueMap.values());
               </div>
             )}
 
-            {/* Actions */}
+           
             <div className="post-actions">
               <div className="post-actions-div">
                 <button
@@ -189,12 +189,12 @@ allPosts = Array.from(uniqueMap.values());
               </div>
             </div>
 
-            {/* Timestamp */}
+           
             <div className="post-meta">
               <p>🕒 {getRelativeTime(post.createdAt)}</p>
             </div>
 
-            {/* Comments */}
+          
             {visibleComments[post._id] && (
               <div className="comments-section">
                 {post.comments?.length > 0 ? (

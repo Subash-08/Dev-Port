@@ -78,7 +78,7 @@ const ViewUserPost = () => {
         <div className="post-details-container">
 
             <div className="post-details-card">
-                {/* Author Info */}
+      
                 <div className="post-author-info" style={{ display: "flex", alignItems: "center" }} onClick={() => { navigate(`/user/${post.author.username}`) }}>
                     <img
                         src={
@@ -92,7 +92,6 @@ const ViewUserPost = () => {
                     <h3>@{post.author?.username}</h3>
                 </div>
 
-                {/* Post Image or Text */}
                 {post.image ? (
                     <div>
                         <img
@@ -114,7 +113,6 @@ const ViewUserPost = () => {
                     </div>
                 )}
 
-                {/* Post Actions */}
                 <div className="post-actions">
                     <div className="post-actions-div">
                         <button
@@ -147,12 +145,10 @@ const ViewUserPost = () => {
                     </div>
                 </div>
 
-                {/* Timestamp */}
                 <div className="post-meta">
                     <p>🕒 {getRelativeTime(post.createdAt)}</p>
                 </div>
 
-                {/* Likes List */}
                 {showLikes && post.likes?.length > 0 && (
                     <div className="likes-list">
                         <p>Liked by:</p>
@@ -164,7 +160,6 @@ const ViewUserPost = () => {
                     </div>
                 )}
 
-                {/* Comments List */}
                 {showComments &&
                     (post.comments?.length > 0 ? (
                         <div className="comments-list">
@@ -208,7 +203,7 @@ const ViewUserPost = () => {
                             </div>
                         </div>
                     ))}
-                {/* Add Comment */}
+         
 
 
             </div>

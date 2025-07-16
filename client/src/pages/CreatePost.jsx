@@ -72,7 +72,7 @@ const CreatePost = () => {
     <div className="create-post-container">
       <h2>Create New Post</h2>
 
-      {/* ✅ Text Post Form */}
+    
       <form onSubmit={submitTextPost} className="create-post-form">
         <h3>Text Post</h3>
         <textarea
@@ -87,7 +87,7 @@ const CreatePost = () => {
 
       <hr style={{ margin: '30px 0' }} />
 
-      {/* ✅ Image Post Form */}
+     
       <form onSubmit={submitImagePost} className="create-post-form">
         <h3>Image Post</h3>
         <input

@@ -71,7 +71,7 @@ const navigate  =useNavigate();
         </ul>
       )}
 
-      {/* Pagination */}
+     
       {totalPages > 1 && (
         <div className="pagination-controls">
           <button disabled={page === 1} onClick={() => setPage(page - 1)}>Prev</button>

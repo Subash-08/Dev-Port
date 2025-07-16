@@ -161,7 +161,7 @@ const MyPostDetails = () => {
         </div>
 
 
-        {/* Show Likes List */}
+    
         {showLikes && post.likes?.length > 0 && (
           <div className="likes-list">
             <p>Liked by:</p>
@@ -173,7 +173,6 @@ const MyPostDetails = () => {
           </div>
         )}
 
-        {/* Show Comments List */}
         {showComments && (
           post.comments?.length > 0 ? (
             <div className="comments-list">
