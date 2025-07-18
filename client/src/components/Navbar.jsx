@@ -26,7 +26,7 @@ const Navbar = () => {
         </div>
 
         <div className="sub-section">
-          <Link className="navlink" to="/message">
+          <Link className="navlink" to="/chats">
             <img className="navIcon" src="https://img.icons8.com/?size=100&id=jOjH1Mt48Fp1&format=png&color=000000" />
             <span className="navText">Message</span>
           </Link>

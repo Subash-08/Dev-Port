@@ -56,7 +56,7 @@ const FriendRequests = () => {
             <li key={user._id} className="request-item">
               <div className="user-info">
                 <img
-                  src={user.avatar || '/profile.jpg'}
+                  src={user.avatar || '/uploads/profile.jpg'}
                   alt={user.username}
                   className="avatar"
                 />

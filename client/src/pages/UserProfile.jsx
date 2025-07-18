@@ -117,7 +117,8 @@ const UserProfile = () => {
 
           {profile && user && profile._id !== user._id && (
             <div className="friend-status-btn">
-              {friendStatus === 'friends' && <button disabled>✔️ Friends</button>}
+              {friendStatus === 'friends' && (<button disabled>✔️ Friends</button>)}
+               {friendStatus === 'friends' && (<button onClick={()=>{navigate(`/message/chat/${user._id}`)}}>Message</button>)}
               {friendStatus === 'pending' && <button disabled>⏳ Pending</button>}
               {friendStatus === 'not_friends' && (
                 <button onClick={handleSendRequest}>➕ Add Friend</button>

@@ -22,6 +22,7 @@ import MyPostDetails from "./pages/MyPostDetails";
 import ExploreUsers from "./pages/ExploreUser";
 import FriendRequests from "./components/FriendRequests";
 import ViewUserPost from "./pages/ViewUserPost";
+import Chat from "./pages/Chat";
 
 const Layout = () => (
   <>
@@ -64,7 +65,7 @@ const App = () => {
         >
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/message" element={<Message />} />
+          <Route path="/message/chat/:userId" element={<Message />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/profile" element={<Profile />} />
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="/user/request-received" element={<FriendRequests />} />
           <Route path="/explore-users" element={<ExploreUsers />} />
          
+          <Route path="/chats" element={<Chat />} />
           <Route path="/more" element={<More />} />
         </Route>
       </Routes>
