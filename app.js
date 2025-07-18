@@ -71,6 +71,7 @@ app.use((err, req, res, next) => {
 connectDB().then(() => {
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
+
   console.log(`Server running on port ${PORT}`);
 });
 
