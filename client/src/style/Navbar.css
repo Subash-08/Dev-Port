@@ -41,6 +41,7 @@ nav{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 .instagram-text-logo{
     width: 150px;

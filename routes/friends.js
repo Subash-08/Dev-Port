@@ -149,6 +149,8 @@ router.get('/explore', userAuth, async (req, res) => {
 
     // Find users you haven't sent a request to yet
     const alreadyRequested = await User.find({
+
+      
       friendRequests: req.user._id
     }).select('_id');
 

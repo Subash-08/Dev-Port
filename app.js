@@ -9,10 +9,16 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
 const http = require('http');
+const intializeSocket = require('./utils/socket');
 require('dotenv').config({ path: './config/.env' });
 app.use('/uploads', express.static('uploads'));
+const chatRoutes = require('./routes/chat');
+const messageRoutes = require('./routes/messages');
 
 
+const server  = http.createServer(app);
+
+intializeSocket(server)
 
 
 app.use(cors({
@@ -30,6 +36,8 @@ app.use('/api/auth/', authRoutes);
 app.use('/user/posts', postRoutes);
 app.use('/user/friends', friendRoutes);
 app.use('/user', userRoutes);
+app.use('/message/chat', chatRoutes);
+app.use('/messages', messageRoutes);
 
 // ✅ Serve static files from frontend (Vite/React build)
 
@@ -62,8 +70,9 @@ app.use((err, req, res, next) => {
 // Start server
 connectDB().then(() => {
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
 });
+

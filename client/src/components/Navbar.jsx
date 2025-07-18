@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav>
       <div className="navbar">
         <div className="instagram-text-logo">
-          <Link to="/">DevPort</Link>
+          <Link className="navlink"  to="/">DevPort</Link>
         </div>
 
         <div className="sub-section">
